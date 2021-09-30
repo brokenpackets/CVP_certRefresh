@@ -78,8 +78,6 @@ for server in server_list:
     currentTime = time.time()
     RefreshTime = int(currentTime+(certRefreshDays*86400))
     certExpiry = output['validTill']/1000
-    print RefreshTime
-    print certExpiry
     if RefreshTime > certExpiry:
         print 'Cert Expiring in under 30 days on '+server+'. Refreshing.'
         print regen_certificate(server1,output)
