@@ -14,7 +14,6 @@ dryRun = True
 connect_timeout = 10
 headers = {"Accept": "application/json",
            "Content-Type": "application/json"}
-requests.packages.urllib3.disable_warnings()
 session = requests.Session()
 
 def login(url_prefix, username, password):
@@ -59,15 +58,6 @@ def regen_certificate(url_prefix,data):
 
 def install_certificate(url_prefix):
     response = session.post(url_prefix+'/cvpservice/ssl/installCertificate.do')
-    return response.json()
-
-def get_configlets(url_prefix):
-    response = session.get(url_prefix+'/cvpservice/configlet/getConfiglets.do?type=Generated&startIndex=0&endIndex=0')
-    return response.json()
-
-def delete_configlet(url_prefix,configlet_key,configlet_name):
-    tempData = [{"key": configlet_key, "name": configlet_name}]
-    response = session.post(url_prefix+'/cvpservice/configlet/deleteConfiglet.do', data=json.dumps(tempData))
     return response.json()
 
 #### Login ####
