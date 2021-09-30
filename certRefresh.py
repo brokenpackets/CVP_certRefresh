@@ -8,6 +8,7 @@ username = 'admin'
 password = 'Arista123'
 server_list = ['192.168.255.50']
 certRefreshDays = 30
+dryRun = True
 
 ######
 connect_timeout = 10
@@ -80,7 +81,10 @@ for server in server_list:
     certExpiry = output['validTill']/1000
     if RefreshTime > certExpiry:
         print 'Cert Expiring in under 30 days on '+server+'. Refreshing.'
-        print regen_certificate(server1,output)
+        if not dryRun:
+            print regen_certificate(server1,output)
+        else:
+            print 'Dryrun enabled. Skipping.'
     else:
         print 'Certificate still valid. Skipping.'
     logout(server1)
